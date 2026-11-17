@@ -1,0 +1,234 @@
+:root {
+      --bg-primary: #ffffff;
+      --bg-elevated: rgba(255, 255, 255, 0.92);
+      --border-subtle: rgba(30, 64, 175, 0.16);
+      --accent-blue: #1d4ed8;
+      --accent-orange: #f97316;
+      --accent-glow: rgba(249, 115, 22, 0.22);
+    }
+    html.dark {
+      --bg-primary: #07142b;
+      --bg-elevated: rgba(12, 28, 62, 0.86);
+      --border-subtle: rgba(59, 130, 246, 0.28);
+      --accent-blue: #3b82f6;
+      --accent-orange: #fb923c;
+      --accent-glow: rgba(249, 115, 22, 0.28);
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    }
+    /* Ambient 2026 Blue & Orange architectural grid */
+    .ambient-grid {
+      background-size: 48px 48px;
+      background-image:
+        linear-gradient(to right, rgba(29, 78, 216, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
+    }
+    .glass-card {
+      position: relative;
+      background: var(--bg-elevated);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px -15px rgba(29, 78, 216, 0.12);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.45s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(249, 115, 22, 0.65);
+      box-shadow: 0 22px 48px -16px rgba(249, 115, 22, 0.25), 0 10px 25px -12px rgba(29, 78, 216, 0.2);
+    }
+    /* Scroll Reveal 2026 Animation */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(28px) scale(0.985);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    /* Animated Blue-Orange Shimmer Text & Borders */
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animated-gradient-text {
+      background: linear-gradient(90deg, #1d4ed8, #2563eb, #f97316, #ea580c, #1d4ed8);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientFlow 7s ease infinite;
+    }
+    html.dark .animated-gradient-text {
+      background: linear-gradient(90deg, #60a5fa, #ffffff, #fb923c, #f97316, #60a5fa);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1.5deg); }
+    }
+    .float-badge {
+      animation: floatSlow 5.5s ease-in-out infinite;
+    }
+    @keyframes orbitSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .orbit-ring {
+      animation: orbitSpin 22s linear infinite;
+    }
+    /* Professional portrait slow cinematic zoom */
+    @keyframes portraitZoom {
+      0% { transform: scale(1) translateY(0px); }
+      50% { transform: scale(1.065) translateY(-3px); }
+      100% { transform: scale(1) translateY(0px); }
+    }
+    .portrait-zoom {
+      animation: portraitZoom 14s ease-in-out infinite;
+      will-change: transform;
+    }
+    .portrait-frame:hover .portrait-zoom {
+      transform: scale(1.08);
+    }
+    /* Orbiting status ring */
+    @keyframes pulseRing {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.03); }
+    }
+    .ring-pulse {
+      animation: pulseRing 5s ease-in-out infinite;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.45); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.75); }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #ffffff !important; color: #0f172a !important; }
+      .glass-card { box-shadow: none !important; border: 1px solid #cbd5e1 !important; background: #ffffff !important; }
+    }
+
+/* =========================================================================
+   TRANSITIONS & EFFETS PRO
+   ========================================================================= */
+
+/* Entrée de page douce */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+body { animation: pageIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Ancres : ne pas passer sous l'en-tête fixe */
+section[id] { scroll-margin-top: 5.5rem; }
+
+/* Barre de progression de lecture */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 100%;
+  transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, #1d4ed8, #3b82f6, #f97316);
+  z-index: 60; pointer-events: none;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.55);
+}
+
+/* En-tête : ombre et densité au défilement */
+header.sticky { transition: box-shadow 0.35s ease, background-color 0.35s ease; }
+header.sticky.is-scrolled { box-shadow: 0 10px 30px -18px rgba(15, 23, 42, 0.45); }
+header.sticky > div:first-child { transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+header.sticky.is-scrolled > div:first-child { height: 3.5rem; }
+
+/* Lien de navigation actif (scrollspy) avec soulignement animé */
+nav a { position: relative; }
+nav a::after {
+  content: ''; position: absolute; left: 0.75rem; right: 0.75rem; bottom: 2px; height: 2px;
+  border-radius: 9999px; background: linear-gradient(90deg, #1d4ed8, #f97316);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+nav a:hover::after, nav a.nav-active::after { transform: scaleX(1); }
+nav a.nav-active { color: #f97316; }
+
+/* Cartes : retour aux transitions de survol une fois révélées */
+.glass-card.reveal-item.reveal-done {
+  transition-delay: 0ms !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease,
+              box-shadow 0.45s ease, opacity 0.3s ease;
+}
+
+/* Lueur qui suit le curseur sur les cartes */
+.glass-card::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity 0.35s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(249, 115, 22, 0.13), rgba(29, 78, 216, 0.06) 40%, transparent 70%);
+}
+.glass-card:hover::after { opacity: 1; }
+
+/* Portrait : inclinaison 3D */
+.portrait-frame {
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out, box-shadow 0.4s ease;
+  will-change: transform;
+}
+.portrait-frame:hover { box-shadow: 0 30px 60px -25px rgba(29, 78, 216, 0.45); }
+
+/* Effet d'onde au clic */
+.ripple-host { position: relative; overflow: hidden; }
+.ripple {
+  position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
+  background: rgba(255, 255, 255, 0.45); animation: rippleOut 0.65s ease-out forwards;
+}
+@keyframes rippleOut { to { transform: scale(1); opacity: 0; } }
+
+/* Boutons : micro-interactions */
+button, a.rounded-xl { transition-property: transform, background-color, border-color, color, box-shadow; transition-duration: 0.25s; }
+button:active, a.rounded-xl:active { transform: scale(0.97); }
+a.bg-orange-500:hover { box-shadow: 0 12px 28px -10px rgba(249, 115, 22, 0.6); transform: translateY(-2px); }
+
+/* Images : zoom doux au survol */
+.glass-card img { transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease; }
+.glass-card:hover img:not(.portrait-zoom) { transform: scale(1.04); }
+
+/* Modale des pièces officielles */
+@keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalPop  { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: none; } }
+#cert-modal.flex { animation: modalFade 0.3s ease both; }
+#cert-modal.flex > * { animation: modalPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Bascule clair / sombre fluide */
+html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, fill 0.45s ease !important;
+}
+
+/* Bouton retour en haut */
+#back-to-top {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 30;
+  width: 2.75rem; height: 2.75rem; border-radius: 9999px; border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  color: #fff; background: linear-gradient(135deg, #1d4ed8, #f97316);
+  box-shadow: 0 14px 30px -10px rgba(29, 78, 216, 0.55);
+  opacity: 0; transform: translateY(16px) scale(0.9); pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#back-to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+#back-to-top:hover { transform: translateY(-3px); }
+
+/* Accessibilité : respect de « réduire les animations » */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .reveal-item { opacity: 1 !important; transform: none !important; }
+}
+@media print { #scroll-progress, #back-to-top { display: none !important; } }
